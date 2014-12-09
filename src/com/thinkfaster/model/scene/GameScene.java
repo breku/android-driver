@@ -90,7 +90,6 @@ public class GameScene extends BaseScene {
     }
 
 
-
     @Override
     protected void onManagedUpdate(float pSecondsElapsed) {
 

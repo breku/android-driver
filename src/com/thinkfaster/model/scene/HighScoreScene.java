@@ -37,9 +37,6 @@ public class HighScoreScene extends BaseScene implements IOnSceneTouchListener {
     }
 
 
-
-
-
     @Override
     public void onBackKeyPressed() {
         SceneManager.getInstance().loadMenuSceneFrom(SceneType.RECORDS);

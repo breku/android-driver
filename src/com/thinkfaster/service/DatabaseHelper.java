@@ -73,16 +73,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-
     private void createDefaultHighScoreValues(SQLiteDatabase sqLiteDatabase) {
 
 
     }
-
-
-
-
 
 
 }
