@@ -1,7 +1,6 @@
 package com.thinkfaster.manager;
 
 import android.graphics.Color;
-import com.thinkfaster.util.MathParameter;
 import org.andengine.audio.sound.Sound;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
@@ -43,13 +42,13 @@ public class ResourcesManager {
             recordTextureAtlas, gameTypeTextureAtlas, gameTextureAtlas;
 
     // Game
-    private ITextureRegion backgroundGameTextureRegion, buttonOkTextureRegion, buttonNoTextureRegion, lifeBarBorderTextureRegion;
+    private ITextureRegion backgroundGameTextureRegion;
     private ITiledTextureRegion playerRegion;
     // Splash
     private ITextureRegion splashTextureRegion;
     // Menu
     private ITextureRegion buttonAboutTextureRegion, buttonExitTextureRegion, buttonNewGameTextureRegion,
-            buttonOptionsTextureRegion, menuBackgroundTextureRegion, buttonMultiplayerTextureRegion;
+            buttonOptionsTextureRegion, menuBackgroundTextureRegion;
     // Help
     private ITextureRegion aboutBackgroundTextureRegion;
     // Options
@@ -61,9 +60,8 @@ public class ResourcesManager {
     //Loading
     private ITextureRegion loadingTextureRegion;
     // Game Type
-    private ITextureRegion buttonAddTextureRegion, buttonSubTextureRegion, buttonMulTextureRegion, buttonDivTextureRegion,
-            backgroundGameTypeTextureRegion, buttonAllTextureRegion, starGoldTextureRegion, starWhiteTextureRegion,
-            awesomeTextureRegion, lockTextureRegion, playButtonTextureRegion;
+    private ITextureRegion
+            backgroundGameTypeTextureRegion;
     private List<Sound> winSoundList, loseSoundList, halfWinSoundList;
     private Sound startGameSound, goodClickSound, wrongClickSound;
     private Font whiteFont, blackFont, greenFont, chalkFont;
@@ -144,7 +142,6 @@ public class ResourcesManager {
         buttonNewGameTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_new.png");
         buttonOptionsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_options.png");
         buttonHighScoreTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_high.png");
-        buttonMultiplayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_multiplayer.png");
 
         try {
             menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 1));
@@ -214,9 +211,7 @@ public class ResourcesManager {
         gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 
         backgroundGameTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "background.png");
-        buttonOkTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "button_ok.png");
-        buttonNoTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "button_no.png");
-        lifeBarBorderTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "bar_border.png");
+
 
         playerRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "blackFish.png", 2, 1);
 
@@ -320,11 +315,6 @@ public class ResourcesManager {
 
         backgroundGameTypeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTypeTextureAtlas, activity, "background.png");
 
-        starGoldTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTypeTextureAtlas, activity, "goldStar.png");
-        starWhiteTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTypeTextureAtlas, activity, "whiteStar.png");
-        awesomeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTypeTextureAtlas, activity, "awesome.png");
-        lockTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTypeTextureAtlas, activity, "lock.png");
-        playButtonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTypeTextureAtlas, activity, "playButton.png");
 
         try {
             gameTypeTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(1, 1, 1));
@@ -345,22 +335,6 @@ public class ResourcesManager {
         menuTextureAtlas.load();
     }
 
-    public ITextureRegion getTextureFor(MathParameter mathParameter) {
-        switch (mathParameter) {
-            case ADD:
-                return buttonAddTextureRegion;
-            case SUB:
-                return buttonSubTextureRegion;
-            case MUL:
-                return buttonMulTextureRegion;
-            case DIV:
-                return buttonDivTextureRegion;
-            case ALL:
-                return buttonAllTextureRegion;
-            default:
-                throw new UnsupportedOperationException();
-        }
-    }
 
     public void unloadSplashScreen() {
         splashTextureAtlas.unload();
@@ -494,33 +468,6 @@ public class ResourcesManager {
         return backgroundGameTextureRegion;
     }
 
-    public ITextureRegion getButtonNoTextureRegion() {
-        return buttonNoTextureRegion;
-    }
-
-    public ITextureRegion getButtonOkTextureRegion() {
-        return buttonOkTextureRegion;
-    }
-
-    public ITextureRegion getStarGoldTextureRegion() {
-        return starGoldTextureRegion;
-    }
-
-    public ITextureRegion getStarWhiteTextureRegion() {
-        return starWhiteTextureRegion;
-    }
-
-    public ITextureRegion getAwesomeTextureRegion() {
-        return awesomeTextureRegion;
-    }
-
-    public ITextureRegion getLockTextureRegion() {
-        return lockTextureRegion;
-    }
-
-    public ITextureRegion getPlayButtonTextureRegion() {
-        return playButtonTextureRegion;
-    }
 
     public Sound getStartGameSound() {
         return startGameSound;
@@ -550,11 +497,5 @@ public class ResourcesManager {
         loadingTextureAtlas.load();
     }
 
-    public ITextureRegion getLifeBarBorderTextureRegion() {
-        return lifeBarBorderTextureRegion;
-    }
 
-    public ITextureRegion getButtonMultiplayerTextureRegion() {
-        return buttonMultiplayerTextureRegion;
-    }
 }

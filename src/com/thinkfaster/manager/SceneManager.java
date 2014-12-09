@@ -3,7 +3,9 @@ package com.thinkfaster.manager;
 import com.google.android.gms.ads.AdView;
 import com.thinkfaster.activity.MyActivity;
 import com.thinkfaster.model.scene.*;
-import com.thinkfaster.util.*;
+import com.thinkfaster.util.AppRater;
+import com.thinkfaster.util.ConstantsUtil;
+import com.thinkfaster.util.SceneType;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface;
@@ -127,13 +129,13 @@ public class SceneManager {
         }));
     }
 
-    public void loadGameTypeScene(boolean multiplayer) {
-        gameTypeScene = new GameTypeScene(multiplayer);
+    public void loadGameTypeScene() {
+        gameTypeScene = new GameTypeScene();
         setScene(gameTypeScene);
         ResourcesManager.getInstance().unloadMenuTextures();
     }
 
-    public void loadGameScene(final LevelDifficulty levelDifficulty, final MathParameter mathParameter, final boolean multiplayer) {
+    public void loadGameScene() {
         setScene(loadingScene);
         ResourcesManager.getInstance().unloadGameTypeTextures();
         ResourcesManager.getInstance().getEngine().registerUpdateHandler(new TimerHandler(ConstantsUtil.LOADING_SCENE_TIME, new ITimerCallback() {
@@ -141,7 +143,7 @@ public class SceneManager {
             public void onTimePassed(TimerHandler pTimerHandler) {
                 ResourcesManager.getInstance().getEngine().unregisterUpdateHandler(pTimerHandler);
                 ResourcesManager.getInstance().loadGameResources();
-                gameScene = new GameScene(levelDifficulty, mathParameter, multiplayer);
+                gameScene = new GameScene();
                 setScene(gameScene);
             }
         }));
@@ -161,7 +163,7 @@ public class SceneManager {
         }));
     }
 
-    public void loadHighScoreSceneFrom(SceneType sceneType, final Integer score, final LevelDifficulty levelDifficulty, final MathParameter mathParameter) {
+    public void loadHighScoreSceneFrom(SceneType sceneType) {
         switch (sceneType) {
             case MENU:
                 setScene(loadingScene);
@@ -185,7 +187,7 @@ public class SceneManager {
                     public void onTimePassed(TimerHandler pTimerHandler) {
                         ResourcesManager.getInstance().getEngine().unregisterUpdateHandler(pTimerHandler);
                         ResourcesManager.getInstance().loadRecordResources();
-                        recordScene = new HighScoreScene(score, levelDifficulty, mathParameter);
+                        recordScene = new HighScoreScene();
                         setScene(recordScene);
                     }
                 }));

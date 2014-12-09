@@ -1,12 +1,9 @@
 package com.thinkfaster.service;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.thinkfaster.util.LevelDifficulty;
-import com.thinkfaster.util.MathParameter;
 
 /**
  * User: Breku
@@ -45,18 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count > 0;
     }
 
-    public Integer getHighScoresFor(LevelDifficulty levelDifficulty, MathParameter mathParameter) {
-        Integer result = null;
-        SQLiteDatabase database = getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT " + COLUMN_SCORE + " FROM " + TABLE_NAME + " WHERE " + COLUMN_LEVEL_DIFFICULTY + " = ? AND " + COLUMN_MATH_PARAMETER + " = ?",
-                new String[]{levelDifficulty.name(), mathParameter.name()});
-        while (cursor.moveToNext()) {
-            result = cursor.getInt(0);
-        }
-        cursor.close();
-        database.close();
-        return result;
-    }    /**
+    /**
      * Called when database does not exists
      *
      * @param sqLiteDatabase
@@ -73,17 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createDefaultHighScoreValues(sqLiteDatabase);
     }
 
-    public void updateRecordFor(LevelDifficulty levelDifficulty, MathParameter mathParameter, Integer score) {
-        SQLiteDatabase database = getWritableDatabase();
-        database.execSQL("UPDATE HIGH_SCORES SET SCORE = ? WHERE LEVEL_DIFFICULTY = ? AND MATH_PARAMETER = ?", new Object[]{score, levelDifficulty.name(), mathParameter.name()});
-        database.close();
-    }
-
-    public void unlockLevel(LevelDifficulty levelDifficulty, MathParameter mathParameter) {
-        SQLiteDatabase database = getWritableDatabase();
-        database.execSQL("UPDATE HIGH_SCORES SET LOCKED = 0 WHERE LEVEL_DIFFICULTY = ? AND MATH_PARAMETER = ?", new String[]{levelDifficulty.name(), mathParameter.name()});
-        database.close();
-    }    /**
+    /**
      * Is called when DATABASE_VERSION is upgraded
      *
      * @param sqLiteDatabase
@@ -96,54 +72,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean isLevelUnlocked(LevelDifficulty levelDifficulty, MathParameter mathParameter) {
-        Integer result = null;
-        SQLiteDatabase database = getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT " + COLUMN_LOCKED + " FROM " + TABLE_NAME + " WHERE " + COLUMN_LEVEL_DIFFICULTY + " = ? AND " + COLUMN_MATH_PARAMETER + " = ?",
-                new String[]{levelDifficulty.name(), mathParameter.name()});
-        while (cursor.moveToNext()) {
-            result = cursor.getInt(0);
-        }
-        cursor.close();
-        database.close();
-        return result == 0;
-    }
 
 
 
     private void createDefaultHighScoreValues(SQLiteDatabase sqLiteDatabase) {
 
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.EASY, MathParameter.ADD, 0);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.EASY, MathParameter.SUB, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.EASY, MathParameter.MUL, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.EASY, MathParameter.DIV, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.EASY, MathParameter.ALL, 1);
-
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.MEDIUM, MathParameter.ADD, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.MEDIUM, MathParameter.SUB, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.MEDIUM, MathParameter.MUL, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.MEDIUM, MathParameter.DIV, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.MEDIUM, MathParameter.ALL, 1);
-
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.HARD, MathParameter.ADD, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.HARD, MathParameter.SUB, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.HARD, MathParameter.MUL, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.HARD, MathParameter.DIV, 1);
-        createDefaultHighScoreRecord(sqLiteDatabase, LevelDifficulty.HARD, MathParameter.ALL, 1);
-    }
-
-
-
-    private void createDefaultHighScoreRecord(SQLiteDatabase sqLiteDatabase, LevelDifficulty levelDifficulty, MathParameter mathParameter, Integer locked) {
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COLUMN_LEVEL_DIFFICULTY, levelDifficulty.name());
-        contentValues.put(COLUMN_MATH_PARAMETER, mathParameter.name());
-        contentValues.put(COLUMN_SCORE, 0);
-        contentValues.put(COLUMN_LOCKED, locked);
-        sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
 
     }
+
+
+
+
 
 
 }

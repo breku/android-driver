@@ -38,7 +38,7 @@ public class MainMenuScene extends BaseScene implements MenuScene.IOnMenuItemCli
 
         final IMenuItem newGameItem = new ScaleMenuItemDecorator(new SpriteMenuItem(NEW_GAME, ResourcesManager.getInstance().getButtonNewGameTextureRegion(), vertexBufferObjectManager), 1.2f, 1);
         final IMenuItem aboutItem = new ScaleMenuItemDecorator(new SpriteMenuItem(ABOUT, ResourcesManager.getInstance().getButtonAboutTextureRegion(), vertexBufferObjectManager), 1.2f, 1);
-        final IMenuItem multiplayerItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MULTIPLAYER, ResourcesManager.getInstance().getButtonMultiplayerTextureRegion(), vertexBufferObjectManager), 1.2f, 1);
+        final IMenuItem multiplayerItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MULTIPLAYER, ResourcesManager.getInstance().getButtonOptionsTextureRegion(), vertexBufferObjectManager), 1.2f, 1);
         final IMenuItem exitItem = new ScaleMenuItemDecorator(new SpriteMenuItem(EXIT, ResourcesManager.getInstance().getButtonExitTextureRegion(), vertexBufferObjectManager), 1.2f, 1);
         final IMenuItem recordsItem = new ScaleMenuItemDecorator(new SpriteMenuItem(RECORDS, ResourcesManager.getInstance().getButtonHighScoreTextureRegion(), vertexBufferObjectManager), 1.2f, 1);
 
@@ -82,10 +82,11 @@ public class MainMenuScene extends BaseScene implements MenuScene.IOnMenuItemCli
     public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
         switch (pMenuItem.getID()) {
             case NEW_GAME:
-                SceneManager.getInstance().loadGameTypeScene(false);
+//                SceneManager.getInstance().loadGameTypeScene(false);
+                SceneManager.getInstance().loadGameScene();
                 break;
             case MULTIPLAYER:
-                SceneManager.getInstance().loadGameTypeScene(true);
+                SceneManager.getInstance().loadGameTypeScene();
                 break;
             case ABOUT:
                 SceneManager.getInstance().loadAboutScene();
@@ -93,7 +94,7 @@ public class MainMenuScene extends BaseScene implements MenuScene.IOnMenuItemCli
             case EXIT:
                 System.exit(0);
             case RECORDS:
-                SceneManager.getInstance().loadHighScoreSceneFrom(SceneType.MENU, null, null, null);
+                SceneManager.getInstance().loadHighScoreSceneFrom(SceneType.MENU);
                 break;
             default:
                 return false;
